@@ -39,7 +39,7 @@ public abstract class ContactDao<T extends Serializable> {
 
     @Transactional
     public void deleteById(Long entityId) {
-        var entity = get(entityId);
+        T entity = get(entityId);
         delete(entity);
     }
 }

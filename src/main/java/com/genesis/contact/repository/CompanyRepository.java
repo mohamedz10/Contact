@@ -19,8 +19,8 @@ public class CompanyRepository extends ContactDao<Company>{
 
     @Transactional
     public Company addContract(Long companyId, Long contactId){
-        var company = this.get(companyId);
-        var contactToAdd = contactRepository.get(contactId);
+        Company company = this.get(companyId);
+        Contact contactToAdd = contactRepository.get(contactId);
         if(contactToAdd != null) {
             company.getContacts().add(contactToAdd);
             this.save(company);
