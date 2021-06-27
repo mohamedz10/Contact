@@ -25,7 +25,7 @@ public class ContactController {
             @RequestParam Long contactId
     ) {
         try {
-            Contact contact = contactService.getContact(contactId);
+            var contact = contactService.getContact(contactId);
 
             return new ResponseEntity<>(contact, contact != null ? HttpStatus.OK : HttpStatus.NO_CONTENT);
         } catch (Exception e) {
@@ -39,7 +39,7 @@ public class ContactController {
             @RequestBody Contact newContact
     ) {
         try {
-            Contact contractSaved = contactService.saveContact(newContact);
+            var contractSaved = contactService.saveContact(newContact);
             return new ResponseEntity<>(contractSaved, HttpStatus.OK);
 
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class ContactController {
             @RequestParam Long contactId
     ) {
         try {
-            boolean deleted = contactService.deleteContact(contactId);
+            var deleted = contactService.deleteContact(contactId);
             return new ResponseEntity<>(deleted, deleted ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 
         } catch (Exception e) {
@@ -66,7 +66,7 @@ public class ContactController {
             @RequestBody Contact contactToUpdate
     ) {
         try {
-            Contact contactUpdated = contactService.updateContact(contactToUpdate);
+            var contactUpdated = contactService.updateContact(contactToUpdate);
             return new ResponseEntity<>(contactUpdated, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

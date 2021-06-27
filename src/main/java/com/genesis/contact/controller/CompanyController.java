@@ -24,7 +24,7 @@ public class CompanyController {
             @RequestParam Long companyId
     ) {
         try {
-            Company company = companyService.getCompany(companyId);
+            var company = companyService.getCompany(companyId);
             return new ResponseEntity<>(company, company != null ? HttpStatus.OK : HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -36,7 +36,7 @@ public class CompanyController {
             @RequestBody Company newCompany
     ) {
         try {
-            Company companySaved = companyService.saveCompany(newCompany);
+            var companySaved = companyService.saveCompany(newCompany);
             return new ResponseEntity<>(companySaved, HttpStatus.OK);
 
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class CompanyController {
             @RequestParam Long companyId
     ) {
         try {
-            Boolean deleted = companyService.deleteCompany(companyId);
+            var deleted = companyService.deleteCompany(companyId);
             return new ResponseEntity<>(deleted, deleted ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class CompanyController {
             @RequestBody Company companyToUpdate
     ) {
         try {
-            Company companyUpdated = companyService.updateCompany(companyToUpdate);
+            var companyUpdated = companyService.updateCompany(companyToUpdate);
             return new ResponseEntity<>(companyUpdated, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -75,7 +75,7 @@ public class CompanyController {
 
     ){
         try {
-            Company companyUpdated = companyService.addContact(companyId, contactId);
+            var companyUpdated = companyService.addContact(companyId, contactId);
             return new ResponseEntity<>(companyUpdated, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
