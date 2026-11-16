@@ -1,50 +1,73 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Idiz Tech · Solutions digitales à Bruxelles</title>
 <meta name="description" content="Idiz Tech conçoit des sites web, des applications et des solutions IT sur mesure pour les entreprises à Bruxelles.">
-<meta name="theme-color" content="#0a0a0a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<script>
+  // apply saved theme before paint
+  (function(){try{var t=localStorage.getItem('idiz-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
 <style>
+  /* Layout: single column editorial page, hairline grids, monochrome */
   :root{
-    --bg:#0a0a0a; --fg:#f4f4f2; --mute:#8a8a87; --line:#232323; --soft:#141414;
+    --bg:#0a0a0a; --fg:#f4f4f2; --mute:#8a8a87; --line:#232323; --soft:#141414; --navbg:rgba(10,10,10,.78);
+    color-scheme:dark;
     --serif:"Instrument Serif",Georgia,serif;
     --sans:"Inter",system-ui,-apple-system,sans-serif;
     --mono:"JetBrains Mono",ui-monospace,monospace;
   }
+  :root[data-theme="light"]{
+    --bg:#f5f5f2; --fg:#0b0b0b; --mute:#6a6a66; --line:#dededa; --soft:#ebebe7; --navbg:rgba(245,245,242,.8);
+    color-scheme:light;
+  }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--fg);font:300 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{background:var(--bg);color:var(--fg);font:300 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .4s,color .4s}
   ::selection{background:var(--fg);color:var(--bg)}
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  :focus-visible{outline:1px solid var(--fg);outline-offset:3px}
+  .wrap{max-width:1120px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
 
   /* grain */
-  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
   /* nav */
-  nav{position:fixed;top:0;left:0;right:0;z-index:50;border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
-  nav.scrolled{background:rgba(10,10,10,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
+  nav.scrolled,nav.open{background:var(--navbg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+  nav .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;height:68px}
   .logo{font:400 26px/1 var(--serif);letter-spacing:-.01em}
   .logo i{color:var(--mute)}
-  nav ul{display:flex;gap:34px;list-style:none;font-size:14px;color:var(--mute)}
+  nav ul{display:flex;gap:30px;list-style:none;font-size:14px;color:var(--mute)}
   nav ul a{transition:color .2s}
   nav ul a:hover{color:var(--fg)}
-  .btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--fg);padding:11px 20px;border-radius:999px;font-size:14px;font-weight:400;transition:background .25s,color .25s}
+  .tools{display:flex;align-items:center;gap:10px}
+  .langs{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+  .langs button{font:400 11px/1 var(--mono);letter-spacing:.08em;padding:7px 9px;border-radius:999px;color:var(--mute);transition:background .2s,color .2s}
+  .langs button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+  .icon-btn{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:border-color .2s}
+  .icon-btn:hover{border-color:var(--fg)}
+  .icon-btn svg{width:16px;height:16px}
+  .theme-btn .sun{display:none}
+  :root[data-theme="light"] .theme-btn .sun{display:block}
+  :root[data-theme="light"] .theme-btn .moon{display:none}
+  .menu-btn{display:none}
+  .mnav{display:none}
+  .btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--fg);padding:11px 20px;border-radius:999px;font-size:14px;font-weight:400;transition:background .25s,color .25s;white-space:nowrap}
   .btn:hover{background:var(--fg);color:var(--bg)}
   .btn.solid{background:var(--fg);color:var(--bg)}
   .btn.solid:hover{background:transparent;color:var(--fg)}
 
   /* hero */
-  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:120px 24px 60px;position:relative}
-  .eyebrow{font:400 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:12px}
-  h1{font:400 clamp(52px,9vw,128px)/.95 var(--serif);letter-spacing:-.03em;margin:28px 0 0}
+  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:120px 60px;position:relative}
+  .eyebrow{font:400 12px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:12px}
+  h1{font:400 clamp(48px,9vw,128px)/.95 var(--serif);letter-spacing:-.03em;margin:28px 0 0;text-wrap:balance}
   h1 i{color:var(--mute)}
   .prompt{margin-top:56px;max-width:720px;border:1px solid var(--line);border-radius:18px;background:var(--soft);padding:22px 24px}
   .prompt .q{display:flex;gap:12px;align-items:center;font:400 14px/1.4 var(--mono);color:var(--mute);padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:16px}
@@ -52,18 +75,19 @@
   .prompt .a{display:flex;gap:12px}
   .prompt .a .dot{width:22px;height:22px;flex:none;border-radius:50%;background:var(--fg);margin-top:3px;position:relative}
   .prompt .a .dot::after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--bg)}
-  .prompt .a p{font-size:17px;color:var(--fg)}
+  .prompt .a p{font-size:17px;color:var(--fg);min-width:0}
   .scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);font:400 11px var(--mono);letter-spacing:.16em;color:var(--mute);text-transform:uppercase}
   .scroll-hint::after{content:"";display:block;width:1px;height:42px;background:linear-gradient(var(--mute),transparent);margin:10px auto 0;animation:drip 2s infinite}
   @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
   /* sections */
-  section{padding:140px 0;border-top:1px solid var(--line)}
+  section{padding-block:140px;border-top:1px solid var(--line)}
   .head{display:grid;grid-template-columns:1fr 2fr;gap:48px;margin-bottom:80px;align-items:start}
   .head>.eyebrow{padding-top:22px}
-  h2{font:400 clamp(40px,5.5vw,72px)/1 var(--serif);letter-spacing:-.02em}
+  .head>div{min-width:0}
+  h2{font:400 clamp(40px,5.5vw,72px)/1 var(--serif);letter-spacing:-.02em;text-wrap:balance}
   h2 i{color:var(--mute)}
-  .lead{font-size:clamp(19px,2vw,24px);line-height:1.5;color:var(--fg);font-weight:300}
+  .lead{font-size:clamp(19px,2vw,24px);line-height:1.5;color:var(--fg);font-weight:300;max-width:42em}
 
   /* stream effect */
   [data-stream]{min-height:1.5em}
@@ -71,23 +95,10 @@
   @keyframes tok{to{opacity:1;filter:blur(0)}}
   .caret{display:inline-block;width:.55em;height:1em;background:currentColor;vertical-align:-.12em;margin-left:2px;animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
-  .streaming .think{display:inline-flex;gap:4px}
-
-  /* clients */
-  .clients{padding-block:96px 0;border-top:1px solid var(--line)}
-  .clients .eyebrow{margin-bottom:40px}
-  .logos-mq{padding:44px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-  .logos-mq .track{display:inline-flex;animation:mq 45s linear infinite}
-  .logos-mq:hover .track{animation-play-state:paused}
-  .logos-mq .grp{display:inline-flex;align-items:center;gap:110px;padding-right:110px;animation:none;font:inherit}
-  .logos-mq img{height:50px;width:auto;opacity:.6;transition:opacity .3s}
-  .logos-mq img:hover{opacity:1}
-  .logos-mq .lg-commission-europeenne{height:84px}.logos-mq .lg-spf-finances{height:62px}.logos-mq .lg-bedigit{height:40px}
-  @media (max-width:860px){.clients{padding-block:72px 0}.logos-mq .grp{gap:64px;padding-right:64px}.logos-mq img{height:36px}.logos-mq .lg-commission-europeenne{height:60px}.logos-mq .lg-spf-finances{height:46px}.logos-mq .lg-bedigit{height:30px}}
 
   /* services */
   .services{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
-  .svc{padding:44px 40px 48px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;transition:background .35s}
+  .svc{padding:44px 40px 48px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;transition:background .35s;min-width:0}
   .svc:hover{background:var(--soft)}
   .svc .n{font:400 12px var(--mono);color:var(--mute);letter-spacing:.1em}
   .svc h3{font:400 34px/1.1 var(--serif);margin:28px 0 14px}
@@ -95,9 +106,22 @@
   .svc .arrow{position:absolute;top:40px;right:40px;font-size:20px;color:var(--mute);transition:transform .3s,color .3s}
   .svc:hover .arrow{transform:translate(4px,-4px);color:var(--fg)}
 
+  /* clients marquee */
+  .clients{padding-block:96px 0}
+  .clients .eyebrow{margin-bottom:40px}
+  .logos-mq{overflow:hidden;white-space:nowrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:44px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .logos-mq .track{display:inline-flex;animation:mq 45s linear infinite}
+  .logos-mq:hover .track{animation-play-state:paused}
+  .logos-mq .grp{display:inline-flex;align-items:center;gap:110px;padding-right:110px}
+  .logos-mq img{height:50px;width:auto;opacity:.6;transition:opacity .3s,filter .4s}
+  .logos-mq img:hover{opacity:1}
+  :root[data-theme="light"] .logos-mq img{filter:invert(1);opacity:.7}
+  .logos-mq .lg-commission-europeenne{height:84px}.logos-mq .lg-spf-finances{height:62px}.logos-mq .lg-bedigit{height:40px}
+  @keyframes mq{to{transform:translateX(-50%)}}
+
   /* method */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-  .step{padding:0 28px 0 0;border-left:1px solid var(--line);padding-left:24px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr)}
+  .step{border-left:1px solid var(--line);padding:0 28px 0 24px;min-width:0}
   .step .n{font:400 64px/1 var(--serif);color:var(--mute)}
   .step h4{font-weight:400;font-size:18px;margin:24px 0 10px}
   .step p{color:var(--mute);font-size:15px}
@@ -106,39 +130,58 @@
   .stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .stat{padding:48px 0;text-align:center}
   .stat+.stat{border-left:1px solid var(--line)}
-  .stat b{display:block;font:400 clamp(48px,6vw,84px)/1 var(--serif)}
+  .stat b{display:block;font:400 clamp(48px,6vw,84px)/1 var(--serif);font-variant-numeric:tabular-nums}
   .stat span{font:400 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
 
-  /* marquee */
-  .marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:28px 0;white-space:nowrap}
-  .marquee div{display:inline-block;animation:mq 40s linear infinite;font:400 clamp(28px,4vw,48px) var(--serif)}
-  .marquee span{margin:0 28px;color:var(--mute)}
-  .marquee em{font-style:italic;color:var(--fg)}
-  @keyframes mq{to{transform:translateX(-50%)}}
-
   /* contact */
-  .contact{text-align:center;padding:180px 0}
-  .contact h2{font-size:clamp(56px,10vw,150px);line-height:.92}
+  .contact{text-align:center;padding-block:180px}
+  .contact .eyebrow{justify-content:center}
+  .contact h2{font-size:clamp(52px,10vw,150px);line-height:.92;margin-top:28px}
   .contact .lead{max-width:620px;margin:36px auto 48px;color:var(--mute)}
   .contact .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
-  footer{border-top:1px solid var(--line);padding:40px 0;font-size:13px;color:var(--mute)}
+  footer{border-top:1px solid var(--line);padding-block:40px;font-size:13px;color:var(--mute)}
   footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 
   /* reveal */
   .rv{opacity:0;transform:translateY(24px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
   .rv.in{opacity:1;transform:none}
 
-  @media (max-width:860px){
+  /* responsive */
+  @media (max-width:1000px){
     nav ul{display:none}
+    .menu-btn{display:grid}
+    .bar .btn{display:none}
+    .mnav{display:block;overflow:hidden;max-height:0;transition:max-height .45s cubic-bezier(.2,.7,.2,1)}
+    nav.open .mnav{max-height:420px}
+    .mnav ul{display:flex;flex-direction:column;gap:0;padding:8px 0 28px}
+    .mnav li a{display:block;font:400 34px/1.3 var(--serif);color:var(--fg);padding:6px 0}
+    .mnav li a.btn{display:inline-flex;margin-top:18px;font:400 14px/1 var(--sans);padding:13px 22px}
+    .menu-btn .x{display:none}
+    nav.open .menu-btn .x{display:block}
+    nav.open .menu-btn .burger{display:none}
+  }
+  @media (max-width:860px){
     .head{grid-template-columns:1fr;gap:24px;margin-bottom:56px}
+    .head>.eyebrow{padding-top:0}
     .services{grid-template-columns:1fr}
     .svc{padding:36px 24px}
     .svc .arrow{top:32px;right:24px}
     .steps{grid-template-columns:1fr 1fr;gap:48px 0}
     .stats{grid-template-columns:1fr}
     .stat+.stat{border-left:0;border-top:1px solid var(--line)}
-    section{padding:96px 0}
+    section{padding-block:96px}
+    .clients{padding-block:72px 0}
+    .contact{padding-block:120px}
+    .logos-mq .grp{gap:64px;padding-right:64px}
+    .logos-mq img{height:36px}.logos-mq .lg-commission-europeenne{height:60px}.logos-mq .lg-spf-finances{height:46px}.logos-mq .lg-bedigit{height:30px}
+  }
+  @media (max-width:420px){
+    .logo{font-size:23px}
+    .langs button{padding:7px 7px}
+    .tools{gap:6px}
+    .prompt{padding:18px}
+    .steps{grid-template-columns:1fr}
   }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
@@ -149,25 +192,51 @@
 <body>
 
 <nav id="nav">
-  <div class="wrap">
+  <div class="wrap bar">
     <a href="#top" class="logo">Idiz<i>tech</i></a>
     <ul>
-      <li><a href="#clients">Clients</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#methode">Méthode</a></li>
-      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#clients" data-i18n="nav.clients">Clients</a></li>
+      <li><a href="#services" data-i18n="nav.services">Services</a></li>
+      <li><a href="#methode" data-i18n="nav.method">Méthode</a></li>
+      <li><a href="#apropos" data-i18n="nav.about">À propos</a></li>
     </ul>
-    <a href="#contact" class="btn">Démarrer un projet</a>
+    <div class="tools">
+      <div class="langs" role="group" aria-label="Langue">
+        <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" data-lang="nl" aria-pressed="false">NL</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button type="button" class="icon-btn theme-btn" id="theme-btn" aria-label="Mode clair / sombre">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a href="#contact" class="btn" data-i18n="nav.cta">Démarrer un projet</a>
+      <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="mnav">
+        <svg class="burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16M4 16h16"/></svg>
+        <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mnav" id="mnav">
+    <div class="wrap">
+      <ul>
+        <li><a href="#clients" data-i18n="nav.clients">Clients</a></li>
+        <li><a href="#services" data-i18n="nav.services">Services</a></li>
+        <li><a href="#methode" data-i18n="nav.method">Méthode</a></li>
+        <li><a href="#apropos" data-i18n="nav.about">À propos</a></li>
+        <li><a href="#contact" class="btn" data-i18n="nav.cta">Démarrer un projet</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
 <header class="hero wrap" id="top">
-  <div class="eyebrow rv">Agence digitale · Bruxelles</div>
-  <h1 class="rv">Le digital,<br><i>pensé</i> avec précision.</h1>
+  <div class="eyebrow rv" data-i18n="hero.eyebrow">Agence digitale · Bruxelles</div>
+  <h1 class="rv" data-i18n-html="hero.title">Le digital,<br><i>pensé</i> avec précision.</h1>
   <div class="prompt rv">
-    <div class="q"><b></b>Qu'est-ce qu'Idiz Tech peut faire pour mon entreprise&nbsp;?</div>
+    <div class="q"><b></b><span data-i18n="hero.q">Qu'est-ce qu'Idiz Tech peut faire pour mon entreprise&nbsp;?</span></div>
     <div class="a"><span class="dot"></span>
-      <p data-stream data-delay="900">Nous concevons des sites web, des applications et des solutions IT sur mesure. Rapides, élégants, et pensés pour faire grandir votre activité.</p>
+      <p data-stream data-delay="900" data-i18n="hero.a">Nous concevons des sites web, des applications et des solutions IT sur mesure. Rapides, élégants, et pensés pour faire grandir votre activité.</p>
     </div>
   </div>
   <div class="scroll-hint">Scroll</div>
@@ -176,44 +245,47 @@
 <section id="services">
   <div class="wrap">
     <div class="head">
-      <div class="eyebrow rv">01 · Services</div>
+      <div class="eyebrow rv" data-i18n="svc.eyebrow">01 · Services</div>
       <div>
-        <h2 class="rv">Ce que nous <i>faisons</i>.</h2>
-        <p class="lead" data-stream style="margin-top:28px;color:var(--mute)">Une équipe compacte, des outils modernes et une obsession du détail. Du premier croquis à la mise en ligne, nous restons à vos côtés.</p>
+        <h2 class="rv" data-i18n-html="svc.title">Ce que nous <i>faisons</i>.</h2>
+        <p class="lead" data-stream data-i18n="svc.lead" style="margin-top:28px;color:var(--mute)">Une équipe compacte, des outils modernes et une obsession du détail. Du premier croquis à la mise en ligne, nous restons à vos côtés.</p>
       </div>
     </div>
     <div class="services">
       <article class="svc rv"><span class="n">/01</span><span class="arrow">↗</span>
-        <h3>Sites web</h3><p data-stream>Sites vitrines et e-commerce sur mesure, rapides, responsives et optimisés pour le référencement.</p></article>
+        <h3 data-i18n="svc.1.t">Sites web</h3><p data-stream data-i18n="svc.1.d">Sites vitrines et e-commerce sur mesure, rapides, responsives et optimisés pour le référencement.</p></article>
       <article class="svc rv"><span class="n">/02</span><span class="arrow">↗</span>
-        <h3>Applications</h3><p data-stream>Applications web et mobiles, back-offices et API connectés à vos outils métier.</p></article>
+        <h3 data-i18n="svc.2.t">Applications</h3><p data-stream data-i18n="svc.2.d">Applications web et mobiles, back-offices et API connectés à vos outils métier.</p></article>
       <article class="svc rv"><span class="n">/03</span><span class="arrow">↗</span>
-        <h3>Support IT</h3><p data-stream>Installation, maintenance et dépannage de votre parc informatique et de votre réseau.</p></article>
+        <h3 data-i18n="svc.3.t">Support IT</h3><p data-stream data-i18n="svc.3.d">Installation, maintenance et dépannage de votre parc informatique et de votre réseau.</p></article>
       <article class="svc rv"><span class="n">/04</span><span class="arrow">↗</span>
-        <h3>Conseil &amp; automatisation</h3><p data-stream>Audit, choix des outils, intégration de l'IA et automatisation de vos processus.</p></article>
+        <h3 data-i18n="svc.4.t">Conseil &amp; automatisation</h3><p data-stream data-i18n="svc.4.d">Audit, choix des outils, intégration de l'IA et automatisation de vos processus.</p></article>
     </div>
   </div>
 </section>
 
 <section class="clients" id="clients" aria-labelledby="clients-t">
-  <div class="wrap"><div class="eyebrow rv" id="clients-t">Ils nous font confiance</div></div>
-  <div class="marquee logos-mq"><div class="track"><div class="grp"><img class="lg-spf-finances" src="logos/spf-finances.png" alt="SPF Finances" loading="lazy"><img class="lg-genesis-consult" src="logos/genesis-consult.png" alt="Genesis Consult" loading="lazy"><img class="lg-cronos-europa" src="logos/cronos-europa.png" alt="Cronos Europa" loading="lazy"><img class="lg-commission-europeenne" src="logos/commission-europeenne.png" alt="Commission européenne" loading="lazy"><img class="lg-bedigit" src="logos/bedigit.png" alt="Bedigit" loading="lazy"><img class="lg-b2r" src="logos/b2r.png" alt="Business to Responsibility" loading="lazy"></div><div class="grp" aria-hidden="true"><img class="lg-spf-finances" src="logos/spf-finances.png" alt="" data-alt="SPF Finances" loading="lazy"><img class="lg-genesis-consult" src="logos/genesis-consult.png" alt="" data-alt="Genesis Consult" loading="lazy"><img class="lg-cronos-europa" src="logos/cronos-europa.png" alt="" data-alt="Cronos Europa" loading="lazy"><img class="lg-commission-europeenne" src="logos/commission-europeenne.png" alt="" data-alt="Commission européenne" loading="lazy"><img class="lg-bedigit" src="logos/bedigit.png" alt="" data-alt="Bedigit" loading="lazy"><img class="lg-b2r" src="logos/b2r.png" alt="" data-alt="Business to Responsibility" loading="lazy"></div></div></div>
+  <div class="wrap"><div class="eyebrow rv" id="clients-t" data-i18n="clients">Ils nous font confiance</div></div>
+  <div class="logos-mq"><div class="track">
+    <div class="grp"><img class="lg-spf-finances" src="logos/spf-finances.png" alt="SPF Finances"><img class="lg-genesis-consult" src="logos/genesis-consult.png" alt="Genesis Consult"><img class="lg-cronos-europa" src="logos/cronos-europa.png" alt="Cronos Europa"><img class="lg-commission-europeenne" src="logos/commission-europeenne.png" alt="Commission européenne"><img class="lg-bedigit" src="logos/bedigit.png" alt="Bedigit"><img class="lg-b2r" src="logos/b2r.png" alt="Business to Responsibility"></div>
+    <div class="grp" aria-hidden="true"><img class="lg-spf-finances" src="logos/spf-finances.png" alt=""><img class="lg-genesis-consult" src="logos/genesis-consult.png" alt=""><img class="lg-cronos-europa" src="logos/cronos-europa.png" alt=""><img class="lg-commission-europeenne" src="logos/commission-europeenne.png" alt=""><img class="lg-bedigit" src="logos/bedigit.png" alt=""><img class="lg-b2r" src="logos/b2r.png" alt=""></div>
+  </div></div>
 </section>
 
 <section id="methode">
   <div class="wrap">
     <div class="head">
-      <div class="eyebrow rv">02 · Méthode</div>
+      <div class="eyebrow rv" data-i18n="m.eyebrow">02 · Méthode</div>
       <div>
-        <h2 class="rv">Simple. <i>Clair.</i> Efficace.</h2>
-        <p class="lead" data-stream style="margin-top:28px;color:var(--mute)">Un processus en quatre étapes, transparent du début à la fin.</p>
+        <h2 class="rv" data-i18n-html="m.title">Simple. <i>Clair.</i> Efficace.</h2>
+        <p class="lead" data-stream data-i18n="m.lead" style="margin-top:28px;color:var(--mute)">Un processus en quatre étapes, transparent du début à la fin.</p>
       </div>
     </div>
     <div class="steps">
-      <div class="step rv"><div class="n">01</div><h4>Écoute</h4><p data-stream>Nous comprenons vos objectifs, vos contraintes et votre public.</p></div>
-      <div class="step rv"><div class="n">02</div><h4>Design</h4><p data-stream>Maquettes épurées, validées ensemble avant la moindre ligne de code.</p></div>
-      <div class="step rv"><div class="n">03</div><h4>Développement</h4><p data-stream>Un code propre, testé et pensé pour durer.</p></div>
-      <div class="step rv"><div class="n">04</div><h4>Lancement</h4><p data-stream>Mise en ligne, formation et suivi après livraison.</p></div>
+      <div class="step rv"><div class="n">01</div><h4 data-i18n="m.1.t">Écoute</h4><p data-stream data-i18n="m.1.d">Nous comprenons vos objectifs, vos contraintes et votre public.</p></div>
+      <div class="step rv"><div class="n">02</div><h4 data-i18n="m.2.t">Design</h4><p data-stream data-i18n="m.2.d">Maquettes épurées, validées ensemble avant la moindre ligne de code.</p></div>
+      <div class="step rv"><div class="n">03</div><h4 data-i18n="m.3.t">Développement</h4><p data-stream data-i18n="m.3.d">Un code propre, testé et pensé pour durer.</p></div>
+      <div class="step rv"><div class="n">04</div><h4 data-i18n="m.4.t">Lancement</h4><p data-stream data-i18n="m.4.d">Mise en ligne, formation et suivi après livraison.</p></div>
     </div>
   </div>
 </section>
@@ -221,25 +293,25 @@
 <section id="apropos">
   <div class="wrap">
     <div class="head">
-      <div class="eyebrow rv">03 · À propos</div>
+      <div class="eyebrow rv" data-i18n="a.eyebrow">03 · À propos</div>
       <div>
-        <h2 class="rv">Une agence <i>indépendante</i>, basée à Bruxelles.</h2>
-        <p class="lead" data-stream style="margin-top:28px">Idiz Tech accompagne depuis 2021 les indépendants, PME et commerces qui veulent un digital à la hauteur de leur savoir-faire. Pas de jargon, pas de surprise : un interlocuteur unique et des résultats concrets.</p>
+        <h2 class="rv" data-i18n-html="a.title">Une agence <i>indépendante</i>, basée à Bruxelles.</h2>
+        <p class="lead" data-stream data-i18n="a.lead" style="margin-top:28px">Idiz Tech accompagne depuis 2021 les indépendants, PME et commerces qui veulent un digital à la hauteur de leur savoir-faire. Pas de jargon, pas de surprise : un interlocuteur unique et des résultats concrets.</p>
       </div>
     </div>
     <div class="stats">
-      <div class="stat rv"><b data-count="2021">2021</b><span>Fondée en</span></div>
-      <div class="stat rv"><b data-count="100" data-suffix="%">100%</b><span>Sur mesure</span></div>
-      <div class="stat rv"><b data-count="24" data-suffix="h">24h</b><span>Délai de réponse</span></div>
+      <div class="stat rv"><b data-count="2021">2021</b><span data-i18n="a.s1">Fondée en</span></div>
+      <div class="stat rv"><b data-count="100" data-suffix="%">100%</b><span data-i18n="a.s2">Sur mesure</span></div>
+      <div class="stat rv"><b data-count="24" data-suffix="h">24h</b><span data-i18n="a.s3">Délai de réponse</span></div>
     </div>
   </div>
 </section>
 
 <section class="contact" id="contact">
   <div class="wrap">
-    <div class="eyebrow rv" style="justify-content:center">04 · Contact</div>
-    <h2 class="rv" style="margin-top:28px">Parlons de<br><i>votre projet.</i></h2>
-    <p class="lead" data-stream>Un site, une application, un souci informatique&nbsp;? Écrivez-nous, nous répondons sous 24&nbsp;heures.</p>
+    <div class="eyebrow rv" data-i18n="c.eyebrow">04 · Contact</div>
+    <h2 class="rv" data-i18n-html="c.title">Parlons de<br><i>votre projet.</i></h2>
+    <p class="lead" data-stream data-i18n="c.lead">Un site, une application, un souci informatique ? Écrivez-nous, nous répondons sous 24 heures.</p>
     <div class="ctas rv">
       <a class="btn solid" href="mailto:info@idiztech.be">info@idiztech.be →</a>
       <a class="btn" href="tel:+32484958344">+32 484 95 83 44</a>
@@ -249,48 +321,168 @@
 
 <footer>
   <div class="wrap">
-    <span>© <span id="y"></span> Idiz Tech · TVA BE 0772.379.227</span>
+    <span>© <span id="y"></span> Idiz Tech · <span data-i18n="f.vat">TVA</span> BE 0772.379.227</span>
     <span>Rue des Anciens Étangs 40, 1190 Forest</span>
   </div>
 </footer>
 
 <script>
 (() => {
+  const I18N = {
+    fr: {
+      "meta.title":"Idiz Tech · Solutions digitales à Bruxelles",
+      "meta.desc":"Idiz Tech conçoit des sites web, des applications et des solutions IT sur mesure pour les entreprises à Bruxelles.",
+      "nav.clients":"Clients","nav.services":"Services","nav.method":"Méthode","nav.about":"À propos","nav.cta":"Démarrer un projet",
+      "hero.eyebrow":"Agence digitale · Bruxelles",
+      "hero.title":"Le digital,<br><i>pensé</i> avec précision.",
+      "hero.q":"Qu'est-ce qu'Idiz Tech peut faire pour mon entreprise ?",
+      "hero.a":"Nous concevons des sites web, des applications et des solutions IT sur mesure. Rapides, élégants, et pensés pour faire grandir votre activité.",
+      "svc.eyebrow":"01 · Services","svc.title":"Ce que nous <i>faisons</i>.",
+      "svc.lead":"Une équipe compacte, des outils modernes et une obsession du détail. Du premier croquis à la mise en ligne, nous restons à vos côtés.",
+      "svc.1.t":"Sites web","svc.1.d":"Sites vitrines et e-commerce sur mesure, rapides, responsives et optimisés pour le référencement.",
+      "svc.2.t":"Applications","svc.2.d":"Applications web et mobiles, back-offices et API connectés à vos outils métier.",
+      "svc.3.t":"Support IT","svc.3.d":"Installation, maintenance et dépannage de votre parc informatique et de votre réseau.",
+      "svc.4.t":"Conseil & automatisation","svc.4.d":"Audit, choix des outils, intégration de l'IA et automatisation de vos processus.",
+      "clients":"Ils nous font confiance",
+      "m.eyebrow":"02 · Méthode","m.title":"Simple. <i>Clair.</i> Efficace.","m.lead":"Un processus en quatre étapes, transparent du début à la fin.",
+      "m.1.t":"Écoute","m.1.d":"Nous comprenons vos objectifs, vos contraintes et votre public.",
+      "m.2.t":"Design","m.2.d":"Maquettes épurées, validées ensemble avant la moindre ligne de code.",
+      "m.3.t":"Développement","m.3.d":"Un code propre, testé et pensé pour durer.",
+      "m.4.t":"Lancement","m.4.d":"Mise en ligne, formation et suivi après livraison.",
+      "a.eyebrow":"03 · À propos","a.title":"Une agence <i>indépendante</i>, basée à Bruxelles.",
+      "a.lead":"Idiz Tech accompagne depuis 2021 les indépendants, PME et commerces qui veulent un digital à la hauteur de leur savoir-faire. Pas de jargon, pas de surprise : un interlocuteur unique et des résultats concrets.",
+      "a.s1":"Fondée en","a.s2":"Sur mesure","a.s3":"Délai de réponse",
+      "c.eyebrow":"04 · Contact","c.title":"Parlons de<br><i>votre projet.</i>",
+      "c.lead":"Un site, une application, un souci informatique ? Écrivez-nous, nous répondons sous 24 heures.",
+      "f.vat":"TVA"
+    },
+    nl: {
+      "meta.title":"Idiz Tech · Digitale oplossingen in Brussel",
+      "meta.desc":"Idiz Tech ontwerpt websites, applicaties en IT-oplossingen op maat voor bedrijven in Brussel.",
+      "nav.clients":"Klanten","nav.services":"Diensten","nav.method":"Methode","nav.about":"Over ons","nav.cta":"Start een project",
+      "hero.eyebrow":"Digitaal bureau · Brussel",
+      "hero.title":"Digitaal,<br><i>doordacht</i> tot in detail.",
+      "hero.q":"Wat kan Idiz Tech voor mijn bedrijf doen?",
+      "hero.a":"Wij ontwerpen websites, applicaties en IT-oplossingen op maat. Snel, elegant en gebouwd om uw activiteit te laten groeien.",
+      "svc.eyebrow":"01 · Diensten","svc.title":"Wat wij <i>doen</i>.",
+      "svc.lead":"Een compact team, moderne tools en oog voor elk detail. Van de eerste schets tot de lancering staan we aan uw zijde.",
+      "svc.1.t":"Websites","svc.1.d":"Showcase- en e-commercesites op maat: snel, responsive en geoptimaliseerd voor zoekmachines.",
+      "svc.2.t":"Applicaties","svc.2.d":"Web- en mobiele applicaties, back-offices en API's gekoppeld aan uw bedrijfstools.",
+      "svc.3.t":"IT-support","svc.3.d":"Installatie, onderhoud en herstelling van uw computers en uw netwerk.",
+      "svc.4.t":"Advies & automatisering","svc.4.d":"Audit, keuze van tools, integratie van AI en automatisering van uw processen.",
+      "clients":"Zij vertrouwen ons",
+      "m.eyebrow":"02 · Methode","m.title":"Eenvoudig. <i>Helder.</i> Efficiënt.","m.lead":"Een proces in vier stappen, transparant van begin tot eind.",
+      "m.1.t":"Luisteren","m.1.d":"We begrijpen uw doelen, uw beperkingen en uw publiek.",
+      "m.2.t":"Design","m.2.d":"Strakke ontwerpen, samen goedgekeurd vóór de eerste regel code.",
+      "m.3.t":"Ontwikkeling","m.3.d":"Nette, geteste code, gebouwd om lang mee te gaan.",
+      "m.4.t":"Lancering","m.4.d":"Livegang, opleiding en opvolging na oplevering.",
+      "a.eyebrow":"03 · Over ons","a.title":"Een <i>onafhankelijk</i> bureau, gevestigd in Brussel.",
+      "a.lead":"Sinds 2021 begeleidt Idiz Tech zelfstandigen, kmo's en handelaars die een digitale aanwezigheid willen die hun vakmanschap waard is. Geen jargon, geen verrassingen: één aanspreekpunt en concrete resultaten.",
+      "a.s1":"Opgericht in","a.s2":"Op maat","a.s3":"Reactietijd",
+      "c.eyebrow":"04 · Contact","c.title":"Laten we praten over<br><i>uw project.</i>",
+      "c.lead":"Een website, een applicatie, een IT-probleem? Schrijf ons, we antwoorden binnen 24 uur.",
+      "f.vat":"BTW"
+    },
+    en: {
+      "meta.title":"Idiz Tech · Digital solutions in Brussels",
+      "meta.desc":"Idiz Tech designs websites, applications and custom IT solutions for businesses in Brussels.",
+      "nav.clients":"Clients","nav.services":"Services","nav.method":"Method","nav.about":"About","nav.cta":"Start a project",
+      "hero.eyebrow":"Digital agency · Brussels",
+      "hero.title":"Digital,<br><i>crafted</i> with precision.",
+      "hero.q":"What can Idiz Tech do for my business?",
+      "hero.a":"We design websites, applications and custom IT solutions. Fast, elegant, and built to help your business grow.",
+      "svc.eyebrow":"01 · Services","svc.title":"What we <i>do</i>.",
+      "svc.lead":"A compact team, modern tools and an obsession with detail. From the first sketch to launch, we stay by your side.",
+      "svc.1.t":"Websites","svc.1.d":"Custom showcase and e-commerce sites: fast, responsive and optimised for search engines.",
+      "svc.2.t":"Applications","svc.2.d":"Web and mobile apps, back-offices and APIs connected to your business tools.",
+      "svc.3.t":"IT support","svc.3.d":"Installation, maintenance and repair of your computers and network.",
+      "svc.4.t":"Consulting & automation","svc.4.d":"Audits, tool selection, AI integration and automation of your processes.",
+      "clients":"They trust us",
+      "m.eyebrow":"02 · Method","m.title":"Simple. <i>Clear.</i> Effective.","m.lead":"A four-step process, transparent from start to finish.",
+      "m.1.t":"Listen","m.1.d":"We understand your goals, your constraints and your audience.",
+      "m.2.t":"Design","m.2.d":"Clean mock-ups, approved together before a single line of code.",
+      "m.3.t":"Development","m.3.d":"Clean, tested code built to last.",
+      "m.4.t":"Launch","m.4.d":"Go-live, training and follow-up after delivery.",
+      "a.eyebrow":"03 · About","a.title":"An <i>independent</i> agency based in Brussels.",
+      "a.lead":"Since 2021, Idiz Tech has helped freelancers, SMEs and shops build a digital presence that matches their expertise. No jargon, no surprises: one point of contact and concrete results.",
+      "a.s1":"Founded in","a.s2":"Tailor-made","a.s3":"Response time",
+      "c.eyebrow":"04 · Contact","c.title":"Let's talk about<br><i>your project.</i>",
+      "c.lead":"A website, an app, an IT issue? Write to us, we reply within 24 hours.",
+      "f.vat":"VAT"
+    }
+  };
+
+  const root = document.documentElement;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+                  set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  // nav background on scroll
-  const nav = document.getElementById('nav');
+  /* ---------- language ---------- */
+  let lang = store.get('idiz-lang');
+  if (!I18N[lang]) { const n = (navigator.language || 'fr').slice(0,2).toLowerCase(); lang = I18N[n] ? n : 'fr'; }
+
+  const applyLang = l => {
+    lang = l; const d = I18N[l];
+    root.lang = l;
+    document.title = d['meta.title'];
+    const md = document.querySelector('meta[name="description"]'); if (md) md.content = d['meta.desc'];
+    document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = d[el.dataset.i18nHtml]; });
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const txt = d[el.dataset.i18n];
+      if (el.hasAttribute('data-stream') && el._state && el._state !== 'pending') {
+        el._sid = (el._sid || 0) + 1; el.style.minHeight = ''; el._state = 'done';
+      }
+      el.textContent = txt;
+    });
+    document.querySelectorAll('.langs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === l));
+  };
+  document.querySelectorAll('.langs button').forEach(b => b.addEventListener('click', () => { applyLang(b.dataset.lang); store.set('idiz-lang', b.dataset.lang); }));
+
+  /* ---------- theme ---------- */
+  document.getElementById('theme-btn').addEventListener('click', () => {
+    const t = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', t); store.set('idiz-theme', t);
+  });
+
+  /* ---------- nav ---------- */
+  const nav = document.getElementById('nav'), mbtn = document.getElementById('menu-btn');
   const onScroll = () => nav.classList.toggle('scrolled', scrollY > 20);
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  const setMenu = open => { nav.classList.toggle('open', open); mbtn.setAttribute('aria-expanded', open); };
+  mbtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+  document.querySelectorAll('#mnav a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
-  // reveal
+  /* ---------- reveal ---------- */
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }), {threshold:.15, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
-  // counters
+  /* ---------- counters ---------- */
   const cio = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return; cio.unobserve(e.target);
     const el = e.target, end = +el.dataset.count, suf = el.dataset.suffix || '';
-    const start = end > 1000 ? end - 30 : 0, t0 = performance.now(), d = 1600;
-    const tick = t => { const p = Math.min((t - t0) / d, 1), k = 1 - Math.pow(1 - p, 3);
+    const start = end > 1000 ? end - 30 : 0, t0 = performance.now(), dur = 1600;
+    const tick = t => { const p = Math.min((t - t0) / dur, 1), k = 1 - Math.pow(1 - p, 3);
       el.textContent = Math.round(start + (end - start) * k) + suf; if (p < 1) requestAnimationFrame(tick); };
     requestAnimationFrame(tick);
   }), {threshold:.6});
   if (!reduce) document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
 
-  // AI-style text streaming
+  applyLang(lang);
+
+  /* ---------- AI-style text streaming ---------- */
   if (reduce) return;
   const stream = el => {
+    const sid = el._sid = (el._sid || 0) + 1;
+    el._state = 'streaming';
     const text = el.textContent.trim().replace(/\s+/g, ' ');
     el.style.minHeight = el.offsetHeight + 'px';
     el.textContent = '';
     const caret = document.createElement('span'); caret.className = 'caret';
     el.appendChild(caret);
     el.style.visibility = '';
-    // split into small "tokens": words, sometimes split long words
     const tokens = [];
     text.split(/(\s+)/).forEach(w => {
       if (w.length > 7 && Math.random() < .5) { const c = Math.ceil(w.length / 2); tokens.push(w.slice(0, c), w.slice(c)); }
@@ -298,21 +490,18 @@
     });
     let i = 0;
     const next = () => {
-      if (i >= tokens.length) { setTimeout(() => { caret.remove(); el.style.minHeight = ''; }, 900); return; }
+      if (el._sid !== sid) return;
+      if (i >= tokens.length) { el._state = 'done'; setTimeout(() => { if (el._sid === sid) { caret.remove(); el.style.minHeight = ''; } }, 900); return; }
       const s = document.createElement('span'); s.className = 'tok'; s.textContent = tokens[i++];
       el.insertBefore(s, caret);
-      const ch = tokens[i - 1];
-      setTimeout(next, /[.!?,:]$/.test(ch) ? 140 + Math.random() * 120 : 18 + Math.random() * 45);
+      setTimeout(next, /[.!?,:]$/.test(tokens[i - 1]) ? 140 + Math.random() * 120 : 18 + Math.random() * 45);
     };
     setTimeout(next, +(el.dataset.delay || 250));
   };
   const sio = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { sio.unobserve(e.target); stream(e.target); }
   }), {threshold:.4});
-  document.querySelectorAll('[data-stream]').forEach(el => {
-    el.style.visibility = 'hidden';
-    sio.observe(el);
-  });
+  document.querySelectorAll('[data-stream]').forEach(el => { el._state = 'pending'; el.style.visibility = 'hidden'; sio.observe(el); });
 })();
 </script>
 </body>
