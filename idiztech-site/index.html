@@ -74,26 +74,16 @@
   .streaming .think{display:inline-flex;gap:4px}
 
   /* clients */
-  .clients{padding-block:96px}
-  .clients .eyebrow{margin-bottom:48px}
-  .logos{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);list-style:none}
-  .logos li{display:flex;align-items:center;justify-content:center;min-height:150px;padding:28px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--mute);text-align:center;transition:color .35s,background .35s}
-  .logos li:hover{color:var(--fg);background:var(--soft)}
-  .logos img{height:56px;width:auto;max-width:100%;opacity:.6;transition:opacity .35s}
-  .logos .lg-commission-europeenne{height:96px}
-  .logos .lg-spf-finances{height:68px}
-  .logos .lg-bedigit{height:44px}
-  .logos li:hover img{opacity:1}
-  .wm{line-height:1.05}
-  .wm small{display:block;font:400 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;margin-top:8px;opacity:.8}
-  .wm-serif{font:400 30px var(--serif);letter-spacing:-.01em}
-  .wm-serif i{font-style:italic}
-  .wm-caps{font:500 15px var(--sans);letter-spacing:.28em;text-transform:uppercase}
-  .wm-mono{font:400 22px var(--mono);letter-spacing:-.02em}
-  .wm-eu{display:flex;align-items:center;gap:14px;text-align:left}
-  .wm-eu svg{width:38px;height:38px;flex:none}
-  .wm-eu span{font:400 21px/1.05 var(--serif)}
-  @media (max-width:860px){.logos{grid-template-columns:1fr 1fr}.logos li{min-height:120px}.logos img{height:40px}.logos .lg-commission-europeenne{height:68px}.logos .lg-spf-finances{height:50px}.logos .lg-bedigit{height:32px}.wm-serif{font-size:24px}.wm-caps{font-size:12px;letter-spacing:.2em}.wm-eu span{font-size:17px}}
+  .clients{padding-block:96px 0;border-top:1px solid var(--line)}
+  .clients .eyebrow{margin-bottom:40px}
+  .logos-mq{padding:44px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .logos-mq .track{display:inline-flex;animation:mq 45s linear infinite}
+  .logos-mq:hover .track{animation-play-state:paused}
+  .logos-mq .grp{display:inline-flex;align-items:center;gap:110px;padding-right:110px;animation:none;font:inherit}
+  .logos-mq img{height:50px;width:auto;opacity:.6;transition:opacity .3s}
+  .logos-mq img:hover{opacity:1}
+  .logos-mq .lg-commission-europeenne{height:84px}.logos-mq .lg-spf-finances{height:62px}.logos-mq .lg-bedigit{height:40px}
+  @media (max-width:860px){.clients{padding-block:72px 0}.logos-mq .grp{gap:64px;padding-right:64px}.logos-mq img{height:36px}.logos-mq .lg-commission-europeenne{height:60px}.logos-mq .lg-spf-finances{height:46px}.logos-mq .lg-bedigit{height:30px}}
 
   /* services */
   .services{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
@@ -183,20 +173,6 @@
   <div class="scroll-hint">Scroll</div>
 </header>
 
-<section class="clients" id="clients" aria-labelledby="clients-t">
-  <div class="wrap">
-    <div class="eyebrow rv" id="clients-t">Ils nous font confiance</div>
-    <ul class="logos">
-      <li class="rv"><img class="lg-spf-finances" src="logos/spf-finances.png" alt="SPF Finances" loading="lazy"></li>
-      <li class="rv"><img class="lg-genesis-consult" src="logos/genesis-consult.png" alt="Genesis Consult" loading="lazy"></li>
-      <li class="rv"><img class="lg-cronos-europa" src="logos/cronos-europa.png" alt="Cronos Europa" loading="lazy"></li>
-      <li class="rv"><img class="lg-commission-europeenne" src="logos/commission-europeenne.png" alt="Commission européenne" loading="lazy"></li>
-      <li class="rv"><img class="lg-bedigit" src="logos/bedigit.png" alt="Bedigit" loading="lazy"></li>
-      <li class="rv"><img class="lg-b2r" src="logos/b2r.png" alt="Business to Responsibility" loading="lazy"></li>
-    </ul>
-  </div>
-</section>
-
 <section id="services">
   <div class="wrap">
     <div class="head">
@@ -219,9 +195,10 @@
   </div>
 </section>
 
-<div class="marquee" aria-hidden="true"><div>
-  <span>Design</span><em>Code</em><span>Performance</span><em>IA</em><span>Sécurité</span><em>Support</em><span>Design</span><em>Code</em><span>Performance</span><em>IA</em><span>Sécurité</span><em>Support</em>
-</div></div>
+<section class="clients" id="clients" aria-labelledby="clients-t">
+  <div class="wrap"><div class="eyebrow rv" id="clients-t">Ils nous font confiance</div></div>
+  <div class="marquee logos-mq"><div class="track"><div class="grp"><img class="lg-spf-finances" src="logos/spf-finances.png" alt="SPF Finances" loading="lazy"><img class="lg-genesis-consult" src="logos/genesis-consult.png" alt="Genesis Consult" loading="lazy"><img class="lg-cronos-europa" src="logos/cronos-europa.png" alt="Cronos Europa" loading="lazy"><img class="lg-commission-europeenne" src="logos/commission-europeenne.png" alt="Commission européenne" loading="lazy"><img class="lg-bedigit" src="logos/bedigit.png" alt="Bedigit" loading="lazy"><img class="lg-b2r" src="logos/b2r.png" alt="Business to Responsibility" loading="lazy"></div><div class="grp" aria-hidden="true"><img class="lg-spf-finances" src="logos/spf-finances.png" alt="" data-alt="SPF Finances" loading="lazy"><img class="lg-genesis-consult" src="logos/genesis-consult.png" alt="" data-alt="Genesis Consult" loading="lazy"><img class="lg-cronos-europa" src="logos/cronos-europa.png" alt="" data-alt="Cronos Europa" loading="lazy"><img class="lg-commission-europeenne" src="logos/commission-europeenne.png" alt="" data-alt="Commission européenne" loading="lazy"><img class="lg-bedigit" src="logos/bedigit.png" alt="" data-alt="Bedigit" loading="lazy"><img class="lg-b2r" src="logos/b2r.png" alt="" data-alt="Business to Responsibility" loading="lazy"></div></div></div>
+</section>
 
 <section id="methode">
   <div class="wrap">
