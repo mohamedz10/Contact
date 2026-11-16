@@ -252,8 +252,30 @@ const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - 
     const { ctx, page } = await openPage(browser, URL);
     const r = await page.evaluate(() => [...document.querySelectorAll('.contact a')].map(a => a.getAttribute('href')));
     await ctx.close();
-    assert(r.includes('mailto:' + EMAIL), 'lien e-mail : ' + r.join(', '));
+    assert(r.some(h => h.startsWith('mailto:' + EMAIL)), 'lien e-mail : ' + r.join(', '));
     assert(r.includes('tel:' + PHONE), 'lien téléphone : ' + r.join(', '));
+  });
+  for (const l of LANGS) {
+    await test(`e-mail en ${l.toUpperCase()} : objet et message pro dans la bonne langue`, async () => {
+      const { ctx, page } = await openPage(browser, URL);
+      await page.click(`.langs [data-lang="${l}"]`);
+      const href = await page.getAttribute('#mail-link', 'href');
+      await ctx.close();
+      const u = new globalThis.URL(href);
+      assert(u.protocol === 'mailto:' && u.pathname === EMAIL, 'adresse : ' + u.pathname);
+      assert(u.searchParams.get('subject') === I18N[l]['mail.subject'], 'objet : ' + u.searchParams.get('subject'));
+      assert(u.searchParams.get('body') === I18N[l]['mail.body'], 'message différent');
+    });
+  }
+  await test('en mode clair, les boutons sont bleu roi et lisibles', async () => {
+    const { ctx, page } = await openPage(browser, URL);
+    await page.click('#theme-btn'); await page.waitForTimeout(600);
+    const c = await page.evaluate(() => { const s = getComputedStyle(document.querySelector('#mail-link')); return [s.backgroundColor, s.color, getComputedStyle(document.querySelector('#tel-link')).borderColor]; });
+    await ctx.close();
+    const [r, g, b] = c[0].match(/\d+/g).map(Number);
+    assert(b > 150 && r < 80 && g < 100, 'fond du bouton : ' + c[0]);
+    assert(contrast(c[0], c[1]) >= 4.5, `texte du bouton ${contrast(c[0], c[1]).toFixed(1)}:1`);
+    assert(c[2] === c[0], 'contour du bouton secondaire : ' + c[2]);
   });
 
   /* 6. Client logos */
