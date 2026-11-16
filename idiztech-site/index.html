@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Idiz Tech · Solutions digitales à Bruxelles</title>
 <meta name="description" content="Idiz Tech conçoit des sites web, des applications et des solutions IT sur mesure pour les entreprises à Bruxelles.">
+<link rel="icon" type="image/png" href="logos/idiz-tech.png">
+<link rel="apple-touch-icon" href="logos/idiz-tech.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -44,8 +46,9 @@
   nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
   nav.scrolled,nav.open{background:var(--navbg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
   nav .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;height:68px}
-  .logo{font:400 26px/1 var(--serif);letter-spacing:-.01em}
-  .logo i{color:var(--mute)}
+  .logo{display:block;flex:none}
+  .logo img{display:block;width:44px;height:44px;border-radius:50%;box-shadow:0 0 0 1px var(--line);transition:transform .3s}
+  .logo:hover img{transform:rotate(-8deg)}
   nav ul{display:flex;gap:30px;list-style:none;font-size:14px;color:var(--mute)}
   nav ul a{transition:color .2s}
   nav ul a:hover{color:var(--fg)}
@@ -181,7 +184,7 @@
     .logos-mq img{height:36px}.logos-mq .lg-commission-europeenne{height:60px}.logos-mq .lg-spf-finances{height:46px}.logos-mq .lg-bedigit{height:30px}
   }
   @media (max-width:420px){
-    .logo{font-size:23px}
+    .logo img{width:38px;height:38px}
     .langs button{min-width:32px;padding:0 6px}
     .tools{gap:6px}
     .prompt{padding:18px}
@@ -197,7 +200,7 @@
 
 <nav id="nav">
   <div class="wrap bar">
-    <a href="#top" class="logo">Idiz<i>tech</i></a>
+    <a href="#top" class="logo" aria-label="Idiz Tech"><img src="logos/idiz-tech.png" alt="Idiz Tech" width="44" height="44"></a>
     <ul>
       <li><a href="#clients" data-i18n="nav.clients">Clients</a></li>
       <li><a href="#services" data-i18n="nav.services">Services</a></li>

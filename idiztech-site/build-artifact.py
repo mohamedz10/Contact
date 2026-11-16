@@ -3,6 +3,7 @@ Usage: python3 build-artifact.py <sortie.html>"""
 import re, base64, sys, os
 here = os.path.dirname(os.path.abspath(__file__))
 s = open(os.path.join(here, "index.html"), encoding="utf-8").read()
+s = re.sub(r'<link rel="(icon|apple-touch-icon)"[^>]*>\n', '', s)
 s = re.sub(r'src="(logos/[^"]+\.png)"',
            lambda m: 'src="data:image/png;base64,' + base64.b64encode(open(os.path.join(here, m.group(1)), "rb").read()).decode() + '"', s)
 for pat in [r'<!doctype html>\n', r'<html[^>]*>\n', r'<head>\n', r'</head>\n', r'<body>\n', r'</body>\n', r'</html>\n?',
