@@ -1,0 +1,23 @@
+name: Idiz Tech site tests
+
+on:
+  push:
+    paths: ["idiztech-site/**", ".github/workflows/idiztech-site-tests.yml"]
+  pull_request:
+    paths: ["idiztech-site/**"]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: idiztech-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npm test

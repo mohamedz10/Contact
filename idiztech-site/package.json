@@ -1,0 +1,11 @@
+{
+  "name": "idiz-tech-website",
+  "private": true,
+  "description": "Site vitrine statique Idiz Tech",
+  "scripts": {
+    "test": "node tests/site.test.js"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}

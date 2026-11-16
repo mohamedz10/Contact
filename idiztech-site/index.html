@@ -49,7 +49,7 @@
   nav ul a:hover{color:var(--fg)}
   .tools{display:flex;align-items:center;gap:10px}
   .langs{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}
-  .langs button{font:400 11px/1 var(--mono);letter-spacing:.08em;padding:7px 9px;border-radius:999px;color:var(--mute);transition:background .2s,color .2s}
+  .langs button{font:400 11px/1 var(--mono);letter-spacing:.08em;min-width:34px;min-height:30px;padding:0 9px;border-radius:999px;color:var(--mute);transition:background .2s,color .2s}
   .langs button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
   .icon-btn{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:border-color .2s}
   .icon-btn:hover{border-color:var(--fg)}
@@ -124,7 +124,7 @@
   .steps{display:grid;grid-template-columns:repeat(4,1fr)}
   .step{border-left:1px solid var(--line);padding:0 28px 0 24px;min-width:0}
   .step .n{font:400 64px/1 var(--serif);color:var(--mute)}
-  .step h4{font-weight:400;font-size:18px;margin:24px 0 10px}
+  .step h3{font-weight:400;font-size:18px;margin:24px 0 10px}
   .step p{color:var(--mute);font-size:15px}
 
   /* stats */
@@ -179,7 +179,7 @@
   }
   @media (max-width:420px){
     .logo{font-size:23px}
-    .langs button{padding:7px 7px}
+    .langs button{min-width:32px;padding:0 6px}
     .tools{gap:6px}
     .prompt{padding:18px}
     .steps{grid-template-columns:1fr}
@@ -283,10 +283,10 @@
       </div>
     </div>
     <div class="steps">
-      <div class="step rv"><div class="n">01</div><h4 data-i18n="m.1.t">Écoute</h4><p data-stream data-i18n="m.1.d">Nous comprenons vos objectifs, vos contraintes et votre public.</p></div>
-      <div class="step rv"><div class="n">02</div><h4 data-i18n="m.2.t">Design</h4><p data-stream data-i18n="m.2.d">Maquettes épurées, validées ensemble avant la moindre ligne de code.</p></div>
-      <div class="step rv"><div class="n">03</div><h4 data-i18n="m.3.t">Développement</h4><p data-stream data-i18n="m.3.d">Un code propre, testé et pensé pour durer.</p></div>
-      <div class="step rv"><div class="n">04</div><h4 data-i18n="m.4.t">Lancement</h4><p data-stream data-i18n="m.4.d">Mise en ligne, formation et suivi après livraison.</p></div>
+      <div class="step rv"><div class="n">01</div><h3 data-i18n="m.1.t">Écoute</h3><p data-stream data-i18n="m.1.d">Nous comprenons vos objectifs, vos contraintes et votre public.</p></div>
+      <div class="step rv"><div class="n">02</div><h3 data-i18n="m.2.t">Design</h3><p data-stream data-i18n="m.2.d">Maquettes épurées, validées ensemble avant la moindre ligne de code.</p></div>
+      <div class="step rv"><div class="n">03</div><h3 data-i18n="m.3.t">Développement</h3><p data-stream data-i18n="m.3.d">Un code propre, testé et pensé pour durer.</p></div>
+      <div class="step rv"><div class="n">04</div><h3 data-i18n="m.4.t">Lancement</h3><p data-stream data-i18n="m.4.d">Mise en ligne, formation et suivi après livraison.</p></div>
     </div>
   </div>
 </section>
