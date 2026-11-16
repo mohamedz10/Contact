@@ -73,6 +73,25 @@
   @keyframes blink{50%{opacity:0}}
   .streaming .think{display:inline-flex;gap:4px}
 
+  /* clients */
+  .clients{padding-block:96px}
+  .clients .eyebrow{margin-bottom:48px}
+  .logos{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);list-style:none}
+  .logos li{display:flex;align-items:center;justify-content:center;min-height:150px;padding:28px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--mute);text-align:center;transition:color .35s,background .35s}
+  .logos li:hover{color:var(--fg);background:var(--soft)}
+  .logos img{max-height:44px;max-width:170px;filter:grayscale(1) brightness(0) invert(1);opacity:.55;transition:opacity .35s}
+  .logos li:hover img{opacity:1}
+  .wm{line-height:1.05}
+  .wm small{display:block;font:400 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;margin-top:8px;opacity:.8}
+  .wm-serif{font:400 30px var(--serif);letter-spacing:-.01em}
+  .wm-serif i{font-style:italic}
+  .wm-caps{font:500 15px var(--sans);letter-spacing:.28em;text-transform:uppercase}
+  .wm-mono{font:400 22px var(--mono);letter-spacing:-.02em}
+  .wm-eu{display:flex;align-items:center;gap:14px;text-align:left}
+  .wm-eu svg{width:38px;height:38px;flex:none}
+  .wm-eu span{font:400 21px/1.05 var(--serif)}
+  @media (max-width:860px){.logos{grid-template-columns:1fr 1fr}.logos li{min-height:120px}.wm-serif{font-size:24px}.wm-caps{font-size:12px;letter-spacing:.2em}.wm-eu span{font-size:17px}}
+
   /* services */
   .services{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
   .svc{padding:44px 40px 48px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;transition:background .35s}
@@ -140,6 +159,7 @@
   <div class="wrap">
     <a href="#top" class="logo">Idiz<i>tech</i></a>
     <ul>
+      <li><a href="#clients">Clients</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#methode">Méthode</a></li>
       <li><a href="#apropos">À propos</a></li>
@@ -159,6 +179,21 @@
   </div>
   <div class="scroll-hint">Scroll</div>
 </header>
+
+<section class="clients" id="clients" aria-labelledby="clients-t">
+  <div class="wrap">
+    <div class="eyebrow rv" id="clients-t">Ils nous font confiance</div>
+    <!-- Pour mettre un vrai logo : remplacer le contenu d'un <li> par <img src="logos/nom.svg" alt="Nom"> -->
+    <ul class="logos">
+      <li class="rv"><span class="wm wm-caps">SPF Finances<small>Belgique</small></span></li>
+      <li class="rv"><span class="wm wm-serif">Genesis <i>Consult</i></span></li>
+      <li class="rv"><span class="wm wm-caps">Cronos<small>Europa</small></span></li>
+      <li class="rv"><span class="wm wm-eu"><svg viewBox="0 0 40 40" aria-hidden="true"><g fill="currentColor"><circle cx="20" cy="6" r="1.6"/><circle cx="27" cy="7.9" r="1.6"/><circle cx="32.1" cy="13" r="1.6"/><circle cx="34" cy="20" r="1.6"/><circle cx="32.1" cy="27" r="1.6"/><circle cx="27" cy="32.1" r="1.6"/><circle cx="20" cy="34" r="1.6"/><circle cx="13" cy="32.1" r="1.6"/><circle cx="7.9" cy="27" r="1.6"/><circle cx="6" cy="20" r="1.6"/><circle cx="7.9" cy="13" r="1.6"/><circle cx="13" cy="7.9" r="1.6"/></g></svg><span>Commission<br>européenne</span></span></li>
+      <li class="rv"><span class="wm wm-mono">bedigit</span></li>
+      <li class="rv"><span class="wm wm-serif" style="font-size:24px">Business to<br><i>Responsibility</i></span></li>
+    </ul>
+  </div>
+</section>
 
 <section id="services">
   <div class="wrap">
